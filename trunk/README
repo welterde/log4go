@@ -1,8 +1,0 @@
-Please see http://log4go.googlecode.com/
-
-Installation:
-- Run `goinstall log4go.googlecode.com/svn/stable`
-
-Usage:
-- Add the following import:
-import l4g "log4go.googlecode.com/svn/stable"
