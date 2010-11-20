@@ -15,7 +15,24 @@ func NewConsoleLogWriter() *ConsoleLogWriter { return new(ConsoleLogWriter) }
 
 // This is the ConsoleLogWriter's output method
 func (slw *ConsoleLogWriter) LogWrite(rec *LogRecord) (n int, err os.Error) {
-	return fmt.Fprint(os.Stdout, "[", rec.Created.Format("01/02/06 15:04:05"), "] [", levelStrings[rec.Level], "] ", rec.Message, "\n")
+	color := ""
+	switch rec.Level {
+	case CRITICAL:
+		color = "%e%r"
+	case ERROR:
+		color = "%r"
+	case WARNING:
+		color = "%y"
+	case INFO:
+		color = "%g"
+	case TRACE:
+		color = ""
+	case DEBUG:
+		color = "%b"
+	case FINE:
+		color = "%c"
+	}
+	return fmt.Fprint(os.Stdout, Colorize(color), "[", rec.Created.Format("01/02/06 15:04:05"), "] [", levelStrings[rec.Level], "] ", rec.Message, Colorize("%R\n"))
 }
 
 // The standard output logger should always be writable
